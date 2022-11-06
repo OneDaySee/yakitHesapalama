@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+      * {
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      #root {
+        text-align: center;
+        font-size: x-large;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="error">
+      <div id="root" style="margin-top: 10px">
+        <div class="container">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button id="benzin" class="btn btn-outline-primary">
+              <i class="fa-solid fa-gas-pump"></i>Benzin
+            </button>
+            <button id="dizel" class="btn btn-outline-danger" disabled>
+              <i class="fa-solid fa-gas-pump"></i>Dizel (Yakında)
+            </button>
+          </div>
+          <h1>
+            <i class="fa-solid fa-gas-pump"></i><span>50₺lık</span> benzin
+            alanlarda bugün
+          </h1>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button id="getSlider" class="btn btn-outline-primary">
+              Slider Ile hesapla
+            </button>
+            <button id="getLt" class="btn btn-outline-danger" disabled>
+              Litre girererek hesapla (Yakında)
+            </button>
+          </div>
+
+          <div class="slider" style="margin-top: 50px">
+            <span>Aracim 100 km'de</span>
+
+            <input
+              type="range"
+              name="points"
+              id="points"
+              min="1"
+              max="20"
+              step="0.1"
+              value="5.5"
+              class="form-range"
+              style="width: 300px"
+            />
+            <label
+              for="points"
+              id="val1"
+              class="badge rounded-pill bg-success text-light"
+              >5.5</label
+            >
+
+            <span> lt tuketiyor. </span>
+          </div>
+          <div class="description" style="margin-top: 50px">
+            <p>
+              Güncel benzin litre fiyatı
+              <strong
+                id="oilPrice"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+            </p>
+            <p>
+              Son zamdan önce
+              <strong
+                id="previousDayOilPrice"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+              idi
+            </p>
+            <p>
+              Aracın ortalamada
+              <strong
+                id="averageLt"
+                class="badge rounded-pill bg-danger text-light"
+                >5.5lt/100km</strong
+              >
+              tüketiyorsa 50₺ ile bugün
+              <strong
+                id="lt50"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+              benzin alarak
+              <strong
+                id="kmtoGo"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+              gidebilirsin.
+            </p>
+            <p>
+              Son zamdan önce
+              <strong
+                id="lt502"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+              benzin alarak
+              <strong
+                id="kmtoGo2"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+              gidebiliyordun.
+            </p>
+            <p>
+              Geçen yıl bu aralar 50₺ ile
+              <strong
+                id="lastYearLt50"
+                class="badge rounded-pill bg-success text-light"
+              ></strong>
+              benzin alarak
+              <strong
+                id="kmtoGo3"
+                class="badge rounded-pill bg-success text-light"
+              ></strong>
+              gidebiliyordun.
+            </p>
+          </div>
+          <div class="lastDate">
+            Son fiyat değişikliği
+            <span
+              id="lastPriceChanceDate"
+              class="badge rounded-pill bg-success text-light"
+            ></span>
+            tarihinde yapıldı benzine
+            <span
+              id="priceDifference"
+              class="badge rounded-pill bg-danger text-light"
+            ></span>
+            zam yansıtıldı.
+          </div>
+          <!-- <div class="noZam">
+          <h2>
+            Bugün benzin litresine <span id="difference"></span> zam geldi
+          </h2>
+          <h2>Hadi yine iyisin bugün zam yok.</h2>
+        </div> -->
+          <div class="info" style="margin-top: 50px">
+            <h3>45 litrelik bir deponun maliyeti;</h3>
+            <p>
+              Bugün:
+              <strong
+                id="gasTankCost"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+            </p>
+            <p>
+              Son zamdan önce:
+              <strong
+                id="previousgasTankCost"
+                class="badge rounded-pill bg-danger text-light"
+              ></strong>
+            </p>
+            <p>
+              Geçen yıl bu hafta:
+              <strong
+                id="lastYearGasTankCost"
+                class="badge rounded-pill bg-success text-light"
+              ></strong>
+            </p>
+          </div>
+        </div>
+        <p>Not: Güncel İstanbul merkez fiyatları baz alınmıştır.</p>
+      </div>
+    </div>
+    <script src="jquery-3.6.0.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(function () {
+        // value();
+        // $.ajax({
+        //   url: "https://api.opet.com.tr/api/fuelprices/prices?ProvinceCode=934&IncludeAllProducts=true",
+        //   type: "GET",
+        //   success: function (data) {
+        //     console.log("opet",data);
+        //   }});
+
+        $.ajax({
+          url: "https://pompacipompa.herokuapp.com/api",
+          type: "GET",
+          success: function (data) {
+            console.log(data);
+            // console.log(data.lastUpdate[1].prices[0].amount);
+            var oilPrice = data.lastUpdate[0].prices[0].amount;
+            $("#oilPrice").text(`${oilPrice}₺`);
+            var gasTankCost = 45 * oilPrice;
+            $("#gasTankCost").text(`${gasTankCost.toFixed(2)}₺`);
+            var previousDayOilPrice = data.lastUpdate[1].prices[0].amount;
+            $("#previousDayOilPrice").text(`${previousDayOilPrice}₺`);
+            // debugger;
+            if (oilPrice < previousDayOilPrice) {
+              // console.log("kucuktur");
+              $("#oilPrice").removeClass("bg-danger");
+              $("#oilPrice").addClass("bg-success");
+            } else {
+              $("#oilPrice").removeClass("bg-success");
+              $("#oilPrice").addClass("bg-danger");
+              // console.log("buyuktur");
+            }
+
+            var previousgasTankCost = 45 * previousDayOilPrice;
+            $("#previousgasTankCost").text(
+              `${previousgasTankCost.toFixed(2)}₺`
+            );
+            // console.log((oilPrice - previousDayOilPrice).toFixed(2));
+            var difference = (oilPrice - previousDayOilPrice).toFixed(2);
+            $("#difference").text(`${difference}₺`);
+
+            var lt50 = 50 / oilPrice;
+            $("#lt50").text(`${lt50.toFixed(2)}lt`);
+            // console.log(lt50);
+            var lt502 = 50 / previousDayOilPrice;
+            $("#lt502").text(`${lt502.toFixed(2)}lt`);
+            // console.log(lt502);
+            // console.log(data.lastUpdate[2].prices[0].amount);
+            var previousYearOilPrice = data.lastUpdate[2].prices[0].amount;
+            var lastYearLt50 = 50 / previousYearOilPrice;
+            $("#lastYearLt50").text(`${lastYearLt50.toFixed(2)}lt`);
+            var lastYearGasTankCost = 45 * previousYearOilPrice;
+            $("#lastYearGasTankCost").text(
+              `${lastYearGasTankCost.toFixed(2)}₺`
+            );
+
+            // $("#previousYearOilPrice").text(`${previousYearOilPrice}₺`);
+
+            var lastPriceChanceDate = data.lastUpdate[0].day;
+            $("#lastPriceChanceDate").text(
+              `${lastPriceChanceDate}`.slice(0, 10)
+            );
+            // console.log(data.lastUpdate[0].day);
+
+            var priceDifference = (oilPrice - previousDayOilPrice).toFixed(2);
+            $("#priceDifference").text(`${priceDifference}₺`);
+
+            var slider = $("#points").on("input", function () {
+              $("#val1").text(this.value);
+              // console.log(slider.val());
+              $("#averageLt").text(`${this.value}lt/100km`);
+              var kmToGo = ((100 * lt50) / slider.val()).toPrecision(4);
+              $("#kmtoGo").text(`${kmToGo}km`);
+              // console.log(kmToGo);
+              var kmToGo2 = ((100 * lt502) / slider.val()).toPrecision(4);
+              $("#kmtoGo2").text(`${kmToGo2}km`);
+              // console.log(kmToGo2);
+              var kmToGo3 = ((100 * lastYearLt50) / slider.val()).toPrecision(
+                4
+              );
+              $("#kmtoGo3").text(`${kmToGo3}km`);
+
+              
+              if (slider.val() >= 10) {
+                $("#val1").removeClass();
+                $("#val1").addClass(`badge rounded-pill bg-danger text-light`);
+              } else {
+                $("#val1").removeClass();
+                $("#val1").addClass(`badge rounded-pill bg-success text-light`);
+              }
+            });
+
+            // sayfa yuklendiginde yazdirmak icin baska cozum suan icin bulamadim.
+            var kmToGo = ((100 * lt50) / slider.val()).toPrecision(4);
+            $("#kmtoGo").text(`${kmToGo}km`);
+            var kmToGo3 = ((100 * lastYearLt50) / slider.val()).toPrecision(4);
+            $("#kmtoGo3").text(`${kmToGo3}km`);
+            // console.log(kmToGo);
+             
+            
+            var pageChance = function () {};
+          },
+          error: function (err) {
+            console.log(err);
+            console.log("Bir hata oluştu. Lütfen tekrar deneyiniz.");
+            $("#root").remove();
+            $("#error").html(
+              `<h1>Veriler çekilemedigi için Bir hata oluştu. Lütfen tekrar deneyiniz.</h1>`
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
